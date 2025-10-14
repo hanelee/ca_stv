@@ -45,15 +45,16 @@ block_num = 25607
 district_nums = [8,10,16,20,40,80]
     
 ## only run 8 districts for speed
-for district_num in [8]:
-# for district_num in district_nums:
+# for district_num in [8]:
+for district_num in district_nums:
     
     ##### get Hane's districts
     ##### only opens the first 10 for speed
     with open(f'./districting/chain_out/ca_{district_num}_dist.json') as file:
         lines = [line.rstrip() for line in file]
     
-    district_plans = [ast.literal_eval(line)['assignment'] for line in lines[:10]]
+    # district_plans = [ast.literal_eval(line)['assignment'] for line in lines[:10]]
+    district_plans = [ast.literal_eval(line)['assignment'] for line in lines]
     
     for plan_indx in range(len(district_plans)):
         district_plan = district_plans[plan_indx]
