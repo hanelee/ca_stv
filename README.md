@@ -119,7 +119,7 @@ This only builds the dual grpah on block groups, and a pre-built graph has alrea
 the "data" folder.
 
 
-## Running VoteKit the Pipeline
+## Running the VoteKit Pipeline
 
 For now, we will assume that all of the samples that we need are in the "districting" folder. 
 
