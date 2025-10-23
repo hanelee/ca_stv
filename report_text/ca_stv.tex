@@ -26,7 +26,58 @@
 \maketitle
 
 \section{How it works}
-mechanism, rules, algorithm
+Single transferable vote, or STV, is a ranked-choice voting system that can be used to elect 
+one or more seats.\footnote{In the case of electing a single seat, STV is often called 
+instant-runoff voting (IRV).} In STV, a threshold of first-place votes is required to be elected.
+If no candidate meets the threshold, the candidate with the fewest first-place votes is eliminated,
+and their votes are transferred to the next candidate on those ballots.
+This is repeated until a candidate reaches the threshold; the candidate is elected, and
+their votes in surplus of the threshold are transferred to the next candidate on those ballots.
+This is repeated until all seats have been filled.
+
+Here is a simple example of how STV works. \todo{Add example}
+
+In our example above, there were a few algorithmic decisions that had to be made. 
+The first is the threshold. 
+Above we used the \emph{Droop quota}, the most common threshold used in STV elections.
+Let $m$ denote the number of seats to be filled ($m$ stands for \emph{magnitude}).
+The Droop quota is calculated as
+\[\left\lfloor\frac{\text{\# of votes}}{m+1} + 1\right\rfloor,\]
+where $\lfloor \cdot \rfloor$ denotes rounding down to the nearest integer.
+One way to interpret the Droop quota is that it is the minimum number of votes such 
+that no more than $m$ candidates can achieve the quota.
+There are other thresholds that can be used, including some which updated dynamically
+as the tabulation process progresses.\todo{Cite}
+For the remainder of this report, we will use the Droop quota.
+
+Another important decision is the method for transferring votes. 
+One option is called \emph{fractional transfer}. In fractional transfer, once a candidate is elected,
+any ballot with that candidate in first place is discounted by a factor of 
+\[\frac{\text{\# of votes}- \text{threshold}}{\text{\# of votes}},\]
+and the vote transfers to the next candidate on the ballot.
+This is how we transferred votes in our example above.
+In Cambridge, Massachusetts, they use a method called \emph{random transfer}.\todo{Cite}
+In random transfer, once a candidate is elected, they randomly select 
+\[\text{\# of votes}- \text{threshold}\]
+ballots to keep, and the votes are transferred to the next candidate on those ballots.
+The unselected ballots are no longer used in the tabulation process.
+
+There are other transfer methods? including \todo{cite} 
+
+Finally, there are two edge cases that need to be handled.
+The first is the method for handling  multiple candidates 
+crossing the threshold in a single round. Either elect all of them in that round,
+or elect the one with the most votes, and proceed to another round of tabulation.
+This decision affects the order in which candidates are elected and which can even 
+alter the winner set.
+The second consideration is a method for handling ties. Ties can occur whenever two or more
+candidates have the same number of first-place votes.\todo{Cite, https://www.portland.gov/sites/default/files/2024/Portland-District-1-Certified-Abstract-Nov-2024.pdf}\footnote{This is not an edge case; ties occur 
+in real-world STV elections. See Round 8 in District 1 of the Portland, OR city council election in 2024.}
+One method is to just randomly select one of the tied candidates; another is to use the 
+first-place vote count from the first round of tabulation.  
+
+Taken together, these algorithmic decisions make up an STV election.
+
 \section{Background and prior use}
 International and US 
 
