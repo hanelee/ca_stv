@@ -137,5 +137,33 @@ Methods of translating votes to seats, vote leakage and truncation
 CA Single-subject rule concerns
 
 \section{Modeling STV in CA}
-CA Model – size of districts, ballot design Implications for descriptive and ideological representation in CA
+We consider shifting California's lower and upper legislative chambers to STV.
+There are 80 districts in the lower chamber and 40 districts in the upper chamber.
+We compare electing 5 members per district with STV to 4 members per district with STV, 
+as well as the current system of single member districts with plurality voting.  
+We identify two different axes to evaluate the impact of the reform along: racial 
+representation and partisan representation.
+For racial representation we consider splitting the electorate into Hispanic and non-Hispanic voters.
+For partisan representation we consider splitting the electorate into Democratic and Republican voters.
+
+In order to evaluate the impact of shifting to STV, we need to generate realistic ranked-choice ballots for voters.
+
+\subsection{Generating realistic ranked preferences for voters}
+One of the primary challenges with deciding on an electoral reform is that there is not a wealth of 
+historical ranked-choice data available to construct realistic preferences for voters, thus making
+it difficult to evaluate the impact of the reform. There is a growing body of work in 
+computational social choice that allows us to generate realistic preferences for voters 
+using parameterized mathematical models. 
+
+While a full discussion of the mathematical models is beyond the scope of this report, we briefly introduce them here. 
+We use three different models to generate ranked-ballots 
+for voters: the slate-Plackett-Luce sampler, the slate-Bradley-Terry sampler, and the Cambridge sampler.
+We first assume that voters are divided into two blocs and each bloc has a corresponding slate of candidates.
+Each bloc of voters has an underlying preference for their slate of candidates over the other slate.
+Each bloc also has preference for the candidates within their own slate.
+To create a ballot for a voter, a model first decides the order in which the slates appear on the ballot.
+Then, for each slate, the model decides the order in which the candidates appear, and fills them 
+in on the ballot in that order.
+
+Consider the following example.\todo{Add example}
 \end{document}
