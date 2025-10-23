@@ -2,6 +2,7 @@
 \usepackage[margin=1.2in]{geometry}
 \usepackage{fancyhdr}
 \usepackage{graphicx,hyperref,xcolor} 
+\usepackage{todonotes}
 % Set up the fancy header and footer
 \pagestyle{fancy}
 \fancyhead{}  % Clear all headers and footers
@@ -78,7 +79,14 @@ first-place vote count from the first round of tabulation.
 
 Taken together, these algorithmic decisions make up an STV election.
 
+
+
+
+
+
 \section{Background and prior use}
+
+
 \subsection{History in the United States}
 Despite sparse implementation today, STV has a long and storied history in the United States.
 Starting in the early 20th century, STV was adopted for use in local elections across some two-dozen cities,
@@ -130,13 +138,27 @@ and Minneapolis, MN adopting STV for two municipal boards.
     \label{fig:stv_timeline_US}
 \end{figure}
 
+
+
+\subsection{History in other countries}
+
 \section{Pros and Cons}
+STV can be used with or without districts.
+
+
 Candidate-centeredness, district size limitations, advocacy in US/FairVote, implications for party behavior
+
+
 \section{Specific concerns}
+Note that the STV algorithm \emph{technically}requires complete ballots as input.
+That is, each ballot should list every candidate in exactly one ranking position. 
+\todo{talk about how to handle incomplete ballots}
+
 Methods of translating votes to seats, vote leakage and truncation
 CA Single-subject rule concerns
 
 \section{Modeling STV in CA}
+
 We consider shifting California's lower and upper legislative chambers to STV.
 There are 80 districts in the lower chamber and 40 districts in the upper chamber.
 We compare electing 5 members per district with STV to 4 members per district with STV, 
@@ -166,4 +188,10 @@ Then, for each slate, the model decides the order in which the candidates appear
 in on the ballot in that order.
 
 Consider the following example.\todo{Add example}
+
+\subsection{Evaluating the impact of the reform}
+\todo[inline]{Story of the results goes here.}
+
+\section{Conclusion}
+\todo[inline]{Conclusion goes here.}
 \end{document}
