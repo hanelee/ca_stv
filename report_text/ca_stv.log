@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  23 OCT 2025 15:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  23 OCT 2025 15:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -603,7 +603,7 @@ Overfull \vbox (1.34557pt too high) has occurred while \output is active []
 
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<figures/stv_timeline_us.png, id=73, 1027.84pt x 1069.9975pt>
+<figures/stv_timeline_us.png, id=77, 1027.84pt x 1069.9975pt>
 File: figures/stv_timeline_us.png Graphic file (type png)
 <use figures/stv_timeline_us.png>
 Package pdftex.def Info: figures/stv_timeline_us.png  used on input line 133.
@@ -622,27 +622,29 @@ Underfull \hbox (badness 1960) in paragraph at lines 137--137
 
 [2]
 
-[3 <./figures/stv_timeline_us.png>] (./ca_stv.aux)
+[3 <./figures/stv_timeline_us.png>]
+
+[4] (./ca_stv.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `ca_stv.out' has not changed.
-(rerunfilecheck)             Checksum: 1AB15E8DFBF00EEF2B7B93D1255DBBA0;1956.
+(rerunfilecheck)             Checksum: E6CC5325B9571B541454AA177713E325;2018.
  ) 
 Here is how much of TeX's memory you used:
- 21799 strings out of 473190
- 404007 string characters out of 5715801
- 809649 words of memory out of 5000000
- 44517 multiletter control sequences out of 15000+600000
+ 21802 strings out of 473190
+ 404059 string characters out of 5715801
+ 809652 words of memory out of 5000000
+ 44518 multiletter control sequences out of 15000+600000
  564943 words of font info for 60 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  99i,11n,101p,651b,968s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on ca_stv.pdf (3 pages, 748506 bytes).
+Output written on ca_stv.pdf (4 pages, 750251 bytes).
 PDF statistics:
- 144 PDF objects out of 1000 (max. 8388607)
- 114 compressed objects within 2 object streams
- 28 named destinations out of 1000 (max. 500000)
- 98 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 152 PDF objects out of 1000 (max. 8388607)
+ 121 compressed objects within 2 object streams
+ 30 named destinations out of 1000 (max. 500000)
+ 106 words of extra memory for PDF output out of 10000 (max. 10000000)
 

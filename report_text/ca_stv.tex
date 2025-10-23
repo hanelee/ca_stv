@@ -18,7 +18,7 @@
     }
 
 \title{CA STV Modeling}
-\author{Matthew Jones, Hane Lee, Jay Lee ?, Max Springer with support from Christopher Donnay, Moon Duchin, and Peter Rock.}
+\author{Matthew Jones, Hane Lee, Jay Lee, Max Springer with support from Christopher Donnay, Moon Duchin, and Peter Rock.}
 \date{\today}
 
 
@@ -143,18 +143,46 @@ and Minneapolis, MN adopting STV for two municipal boards.
 \subsection{History in other countries}
 
 \section{Pros and Cons}
-STV can be used with or without districts.
+\subsection{Pros}
+\begin{itemize}
+    \item[\bf{Districts:}] STV can be used with or without districts. It is flexible enough to be used 
+                    either to elect a single winner per district, to elect multiple winners per district,
+                    or to elect all winners at large. This flexibility allows STV to be used in a variety of contexts,
+                    from at-large city councils to districted legislative bodies.
+
+    \item[\bf{Proportional tendencies:}] STV in the multi-winner setting tends to produce more
+                    proportional outcomes than plurality voting. This is in part because STV dampens the 
+                    power of ballots that have already had a candidate elected, thus giving smaller
+                    voting blocs the change to elect a candidate of choice.
+
+    \item[\bf{Non-partisan:}] Unlike some list-based voting systems, STV does not require 
+                        candidates to run under a party label. This lowers the barrier to entry
+                        for candidates who may not enjoy the support of a political party.
+\end{itemize}
+
+\subsection{Cons}
+\begin{itemize}
+    \item[\bf{Complex mechanism:}] STV is a relatively complex voting mechanism, and it can be difficult 
+                    for voters to understand how their vote is converted into an outcome.
+
+    \item[\bf{Voter burden:}] As a voting system, STV technically requires that each voter provides 
+                    a complete ballot. That is, each ballot needs to list a candidate in each ranking position.
+                    This can be a burden for voters, especially if they are not familiar with the candidates
+                    or if they are voting in an election with a long ballot. 
+
+    \item[\bf{Vote leakage:}] If a voter does not complete their ballot, it is possible that 
+                    through candidate elimination their vote will no longer be an active 
+                    part of the tabulation process. 
+\end{itemize}
+
+In practice, much of the cons list can be mitigated through voter education and outreach. 
+The mechnism can be explained, and voters can be encouraged to complete their ballots.
+Cities that have implemented STV have found that mistakes on ballots decrease over time
+as voters become more familiar with the system. \todo{Cite}
 
 
-Candidate-centeredness, district size limitations, advocacy in US/FairVote, implications for party behavior
 
 
-\section{Specific concerns}
-Note that the STV algorithm \emph{technically}requires complete ballots as input.
-That is, each ballot should list every candidate in exactly one ranking position. 
-\todo{talk about how to handle incomplete ballots}
-
-Methods of translating votes to seats, vote leakage and truncation
 CA Single-subject rule concerns
 
 \section{Modeling STV in CA}
