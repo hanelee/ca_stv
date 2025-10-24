@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1761249404.33237 "/Users/cdonnay/Documents/GitHub/MGGG/CA_STV/report_text/ca_stv.tex" "ca_stv.pdf" "ca_stv" 1761249406.76953 0
-  "/Users/cdonnay/Documents/GitHub/MGGG/CA_STV/report_text/ca_stv.tex" 1761249404.1412 12011 31a9a09539de9722c7ba6c42923eabae ""
+["pdflatex"] 1761328520.25134 "/Users/cdonnay/Documents/GitHub/MGGG/CA_STV/report_text/ca_stv.tex" "ca_stv.pdf" "ca_stv" 1761328522.81663 0
+  "/Users/cdonnay/Documents/GitHub/MGGG/CA_STV/report_text/ca_stv.tex" 1761328520.16985 12407 1c2b9ef595082a513b6b31f43fae7b25 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -158,9 +158,9 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1753983240 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "ca_stv.aux" 1761249406.72244 4796 52f215b6fa599c6e46af8f45ad79e75d "pdflatex"
-  "ca_stv.out" 1761249406.72321 2018 e6cc5325b9571b541454aa177713e325 "pdflatex"
-  "ca_stv.tex" 1761249404.1412 12011 31a9a09539de9722c7ba6c42923eabae ""
+  "ca_stv.aux" 1761328522.76562 4792 39b2102c0ac1c57a5c5c7488a2620a42 "pdflatex"
+  "ca_stv.out" 1761328522.76641 1998 73f618af81b72bd0307f8bd17f8a664b "pdflatex"
+  "ca_stv.tex" 1761328520.16985 12407 1c2b9ef595082a513b6b31f43fae7b25 ""
   "figures/stv_timeline_us.png" 1761246388.4856 963943 ddd2d900a234c6cdb8a038f9714c4733 ""
   (generated)
   "ca_stv.aux"

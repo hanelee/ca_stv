@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  23 OCT 2025 15:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  24 OCT 2025 13:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -586,14 +586,14 @@ Package hyperref Info: Link coloring ON on input line 25.
 \@outlinefile=\write4
 \openout4 = `ca_stv.out'.
 
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 39.
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 41.
 
-Overfull \hbox (185.52841pt too wide) in paragraph at lines 75--75
+Overfull \hbox (185.52841pt too wide) in paragraph at lines 77--77
 \OT1/cmr/m/n/10 https://www.portland.gov/sites/default/files/2024/Portland- 
  []
 
 
-Overfull \hbox (185.52841pt too wide) in paragraph at lines 75--75
+Overfull \hbox (185.52841pt too wide) in paragraph at lines 77--77
 \OT1/cmr/m/n/10 https://www.portland.gov/sites/default/files/2024/Portland- 
  []
 
@@ -606,15 +606,15 @@ Overfull \vbox (1.34557pt too high) has occurred while \output is active []
 <figures/stv_timeline_us.png, id=77, 1027.84pt x 1069.9975pt>
 File: figures/stv_timeline_us.png Graphic file (type png)
 <use figures/stv_timeline_us.png>
-Package pdftex.def Info: figures/stv_timeline_us.png  used on input line 133.
+Package pdftex.def Info: figures/stv_timeline_us.png  used on input line 136.
 (pdftex.def)             Requested size: 220.42372pt x 229.45721pt.
 
-Underfull \hbox (badness 2990) in paragraph at lines 137--137
+Underfull \hbox (badness 2990) in paragraph at lines 140--140
 \OT1/cmr/m/sc/10 Figure 1.[]\OT1/cmr/m/n/10 A time-line of STV's his-tory in the United States. Up-ward
  []
 
 
-Underfull \hbox (badness 1960) in paragraph at lines 137--137
+Underfull \hbox (badness 1960) in paragraph at lines 140--140
 \OT1/cmr/m/n/10 green tri-an-gles de-note adop-tion of STV, while down-ward red tri-an-gles de-
  []
 
@@ -630,7 +630,7 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `ca_stv.out' has not changed.
-(rerunfilecheck)             Checksum: E6CC5325B9571B541454AA177713E325;2018.
+(rerunfilecheck)             Checksum: 73F618AF81B72BD0307F8BD17F8A664B;1998.
  ) 
 Here is how much of TeX's memory you used:
  21802 strings out of 473190
@@ -641,7 +641,7 @@ Here is how much of TeX's memory you used:
  1302 hyphenation exceptions out of 8191
  99i,11n,101p,651b,968s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on ca_stv.pdf (4 pages, 750251 bytes).
+Output written on ca_stv.pdf (4 pages, 750796 bytes).
 PDF statistics:
  152 PDF objects out of 1000 (max. 8388607)
  121 compressed objects within 2 object streams

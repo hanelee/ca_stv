@@ -26,6 +26,8 @@
 
 \maketitle
 
+%%% other sections about 12 pages
+
 \section{How it works}
 Single transferable vote, or STV, is a ranked-choice voting system that can be used to elect 
 one or more seats.\footnote{In the case of electing a single seat, STV is often called 
@@ -88,6 +90,7 @@ Taken together, these algorithmic decisions make up an STV election.
 
 
 \subsection{History in the United States}
+%% jay more detail/citations
 Despite sparse implementation today, STV has a long and storied history in the United States.
 Starting in the early 20th century, STV was adopted for use in local elections across some two-dozen cities,
 including New York City, Cincinnati, and Cambridge, MA. Almost all of them eventually repealed STV;
@@ -140,12 +143,14 @@ and Minneapolis, MN adopting STV for two municipal boards.
 
 
 
-\subsection{History in other countries}
+\subsection{Use in other countries}
+
+ %% jay 
 
 \section{Pros and Cons}
 \subsection{Pros}
 \begin{itemize}
-    \item[\bf{Districts:}] STV can be used with or without districts. It is flexible enough to be used 
+    \item[\bf{Flexible:}] STV can be used with or without districts. It is flexible enough to be used 
                     either to elect a single winner per district, to elect multiple winners per district,
                     or to elect all winners at large. This flexibility allows STV to be used in a variety of contexts,
                     from at-large city councils to districted legislative bodies.
@@ -161,18 +166,22 @@ and Minneapolis, MN adopting STV for two municipal boards.
 \end{itemize}
 
 \subsection{Cons}
+
+%%% flip of  non-partisan, vote leakage 
 \begin{itemize}
     \item[\bf{Complex mechanism:}] STV is a relatively complex voting mechanism, and it can be difficult 
-                    for voters to understand how their vote is converted into an outcome.
+                    for voters to understand how their vote is converted into an outcome. %% more info required from voter
 
-    \item[\bf{Voter burden:}] As a voting system, STV technically requires that each voter provides 
+    \item[\bf{Voter burden:}] As a voting system, STV \emph{technically} requires that each voter provides 
                     a complete ballot. That is, each ballot needs to list a candidate in each ranking position.
                     This can be a burden for voters, especially if they are not familiar with the candidates
-                    or if they are voting in an election with a long ballot. 
+                    or if they are voting in an election with a long ballot. %% if you want your vote to fully "count"
 
-    \item[\bf{Vote leakage:}] If a voter does not complete their ballot, it is possible that 
+    \item[\bf{Vote exhaustion:}] If a voter does not complete their ballot, it is possible that 
                     through candidate elimination their vote will no longer be an active 
                     part of the tabulation process. 
+
+    \item[\bf{Vote leakage:}] Votes ``for" a party can leak to other parties.
 \end{itemize}
 
 In practice, much of the cons list can be mitigated through voter education and outreach. 
@@ -196,6 +205,8 @@ representation and partisan representation.
 For racial representation we consider splitting the electorate into Hispanic and non-Hispanic voters.
 For partisan representation we consider splitting the electorate into Democratic and Republican voters.
 
+%%% not meant to be complete but illustrative
+
 In order to evaluate the impact of shifting to STV, we need to generate realistic ranked-choice ballots for voters.
 
 \subsection{Generating realistic ranked preferences for voters}
@@ -216,6 +227,9 @@ Then, for each slate, the model decides the order in which the candidates appear
 in on the ballot in that order.
 
 Consider the following example.\todo{Add example}
+
+%% describe impulsive, deliberative, cambridge 
+%% shorthand descriptions
 
 \subsection{Evaluating the impact of the reform}
 \todo[inline]{Story of the results goes here.}
