@@ -54,12 +54,12 @@ def process_settings_file(settings_file, profile_folder, mode, duplicate_indx):
 
 if __name__ == "__main__":
     ## generate 100 profiles for each district
-    for duplicate_indx in range(100):
+    for duplicate_indx in range(50):
         district_nums = [8, 10, 16, 20, 40, 80]
         for district_num in district_nums:
             for mode in ["slate_pl", "slate_bt", "cambridge"]:
-                settings_folder = Path(f"./vk_run_settings_racial/{district_num}")
-                profile_folder = Path(f"./vk_voter_profiles_racial/{mode}/{district_num}")
+                settings_folder = Path(f"./vk_run_settings_racial_turnout/{district_num}")
+                profile_folder = Path(f"./vk_voter_profiles_racial_turnout/{mode}/{district_num}")
                 profile_folder.mkdir(exist_ok=True, parents=True)
     
                 all_settings_files = glob(f"{settings_folder}/*.json")

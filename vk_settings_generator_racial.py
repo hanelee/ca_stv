@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     district_nums = [8, 10, 16, 20, 40, 80]
     for district_num in district_nums:
-        settings_folder = Path(f"./vk_run_settings_racial/{district_num}")
+        settings_folder = Path(f"./vk_run_settings_racial_turnout/{district_num}")
         settings_folder.mkdir(exist_ok=True, parents=True)
 
         with jl.open(f"./districting/chain_out/ca_{district_num}_dist.jsonl") as file:
@@ -52,13 +52,15 @@ if __name__ == "__main__":
                 for _, row in data_by_district.iterrows():
                     district = row.name
                     hprop = float(row["hvap_20"] / row["total_vap_20"])
+                    turnout = {"H": 0.3, "O": 0.75}
+                    adjusted_hprop = hprop*turnout["H"] / (hprop*turnout["H"] + (1-hprop)*turnout["O"])
                     output_settings = dict(
                         n_voters=100_000,
                         slate_to_candidates={
                             "H": ["H1", "H2", "H3"],
                             "O": ["O1", "O2", "O3", "O4", "O5", "O6", "O7"],
                         },
-                        bloc_proportions={"H": hprop, "O": 1 - hprop},
+                        bloc_proportions={"H": adjusted_hprop, "O": 1 - adjusted_hprop},
                         cohesion_parameters={
                             "H": {"H": 0.77, "O": 0.23},
                             "O": {"H": 0.52, "O": 0.48},
