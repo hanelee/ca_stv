@@ -30,7 +30,7 @@ generator_name_to_function = {
 }
 
 
-def process_settings_file(settings_file, profile_folder, mode):
+def process_settings_file(settings_file, profile_folder, mode, duplicate_indx):
     with open(settings_file, "r") as f:
         settings = json.load(f)
 
@@ -46,7 +46,7 @@ def process_settings_file(settings_file, profile_folder, mode):
 
     output_file = (
         profile_folder
-        / f"{setting_file_stem.replace('sample_settings', 'profile')}.csv"
+        / f"{setting_file_stem.replace('sample_settings', 'profile')}_v{duplicate_indx}.csv"
     )
     profile = generator_name_to_function[mode](config)
     profile.to_csv(output_file)
@@ -71,6 +71,6 @@ if __name__ == "__main__":
                     total=len(all_settings_files),
                 ):
                     Parallel(n_jobs=-1)(
-                        delayed(process_settings_file)(settings_file, profile_folder, mode)
+                        delayed(process_settings_file)(settings_file, profile_folder, mode, duplicate_indx)
                         for settings_file in all_settings_files
                     )
