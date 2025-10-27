@@ -34,13 +34,13 @@ def process_profile(profile_file, n_seats):
 
 if __name__ == "__main__":
     for model in ["slate_pl", "slate_bt", "cambridge"]:
-        output_dir = Path(f"./vk_ca_election_model_results_racial/{model}")
+        output_dir = Path(f"./vk_ca_election_model_results_racial_turnout/{model}")
         output_dir.mkdir(exist_ok=True, parents=True)
 
         district_nums = [8, 10, 16, 20, 40, 80]
         winners_count = [5, 4, 5, 4, 1, 1]
         for district_num, n_seats in zip(district_nums, winners_count):
-            profile_folder = Path(f"./vk_voter_profiles_racial/{model}/")
+            profile_folder = Path(f"./vk_voter_profiles_racial_turnout/{model}/")
 
             all_profile_files = glob(f"{profile_folder}/{district_num}/*.csv")
 
