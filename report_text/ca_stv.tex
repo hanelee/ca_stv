@@ -8,6 +8,9 @@
 \fancyhead{}  % Clear all headers and footers
 \fancyfoot[C]{\thepage} 
 
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -30,7 +33,7 @@
 
 \section{How it works}
 Single transferable vote, or STV, is a ranked-choice voting system that can be used to elect 
-one or more seats.\footnote{In the case of electing a single seat, STV is often called 
+one or more winners.\footnote{In the case of electing a single seat, STV is often called 
 instant-runoff voting (IRV).} In STV, a threshold of first-place votes is required to be elected.
 If no candidate meets the threshold, the candidate with the fewest first-place votes is eliminated,
 and their votes are transferred to the next candidate on those ballots.
@@ -38,10 +41,116 @@ This is repeated until a candidate reaches the threshold; the candidate is elect
 their votes in surplus of the threshold are transferred to the next candidate on those ballots.
 This is repeated until all seats have been filled.
 
-Here is a simple example of how STV works. \todo{Add example}
+Here is a simple example of an STV election for two seats. 
+\begin{example}
+    Consider the following 12 cast ballots:
+    
+    \[\begin{pmatrix}
+        A\\B\\C\\D\\E
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        B\\A\\C\\D\\E
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        C\\B\\A\\D\\E
+    \end{pmatrix} \times 6,
+    \begin{pmatrix}
+        D\\C\\B\\A\\E
+    \end{pmatrix} \times 3, 
+    \begin{pmatrix}
+        E\\C\\B\\A\\D
+    \end{pmatrix} \times 2.\]
+    
+    If two seats are up for election,  the threshold for election is seven votes (this is 
+    the Droop quota and is defined below).
+    The first round of tabulation is as follows:
+    \begin{itemize}
+        \item A has five votes.
+        \item B has five votes.
+        \item C has six votes.
+        \item D has three votes.
+        \item E has two votes.
+    \end{itemize}
+    Since no one has seven votes, the candidate with the fewest votes is eliminated (E).
 
-In our example above, there were a few algorithmic decisions that had to be made. 
-The first is the threshold. 
+    Now the ballots are 
+    \[\begin{pmatrix}
+        A\\B\\C\\D
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        B\\A\\C\\D
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        C\\B\\A\\D
+    \end{pmatrix} \times 6,
+    \begin{pmatrix}
+        D\\C\\B\\A
+    \end{pmatrix} \times 3, 
+    \begin{pmatrix}
+        C\\B\\A\\D
+    \end{pmatrix} \times 2.\]
+
+    The second round of tabulation is as follows:
+    \begin{itemize}
+        \item A has five votes.
+        \item B has five votes.
+        \item C has eight votes.
+        \item D has three votes.
+    \end{itemize}
+    Since C has eight votes, they are elected and removed from all ballots. 
+    C had one surplus vote over threshold, so the ballots with C in first place are 
+    discounted by a factor of $\frac{1}{8}$.
+
+    Now the ballots are 
+    \[\begin{pmatrix}
+        A\\B\\D
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        B\\A\\D
+    \end{pmatrix} \times \frac{6}{8}, \begin{pmatrix}
+        B\\A\\D
+    \end{pmatrix} \times 5,
+    \begin{pmatrix}
+        D\\B\\A
+    \end{pmatrix} \times 3, 
+    \begin{pmatrix}
+        B\\A\\D
+    \end{pmatrix} \times \frac{2}{8}.\]
+
+    The third round of tabulation is as follows:
+    \begin{itemize}
+        \item A has five votes.
+        \item B has six votes.
+        \item D has three votes.
+    \end{itemize}
+    Since no one has seven votes, the candidate with the fewest votes is eliminated (D).
+
+    Now the ballots are 
+    \[\begin{pmatrix}
+        A\\B
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        B\\A
+    \end{pmatrix} \times \frac{6}{8},
+    \begin{pmatrix}
+        B\\A
+    \end{pmatrix} \times 5,
+    \begin{pmatrix}
+        B\\A
+    \end{pmatrix} \times 3,
+    \begin{pmatrix}
+        B\\A
+    \end{pmatrix} \times \frac{2}{8}.\]
+
+    The fourth round of tabulation is as follows:
+    \begin{itemize}
+        \item A has five votes.
+        \item B has nine votes.
+    \end{itemize}
+    Since B has nine votes, they are elected.
+    Since two candidates have reached threshold, the election is over, no transfer is needed, and the winners are
+    C and B.
+
+\end{example}
+
+In our example, we hid quite a few algorithmic decisions. 
+
+\paragraph{\bf{Threshold:}}
+The first choice to make is the threshold value. 
 Above we used the \emph{Droop quota}, the most common threshold used in STV elections.
 Let $m$ denote the number of seats to be filled ($m$ stands for \emph{magnitude}).
 The Droop quota is calculated as
@@ -49,35 +158,39 @@ The Droop quota is calculated as
 where $\lfloor \cdot \rfloor$ denotes rounding down to the nearest integer.
 One way to interpret the Droop quota is that it is the minimum number of votes such 
 that no more than $m$ candidates can achieve the quota.
+
 There are other thresholds that can be used, including some which updated dynamically
 as the tabulation process progresses.\todo{Cite}
-For the remainder of this report, we will use the Droop quota.
+For the remainder of this report, we will use the Droop quota.\\
 
+\paragraph{\bf{Transfer method:}}
 Another important decision is the method for transferring votes. 
 One option is called \emph{fractional transfer}. In fractional transfer, once a candidate is elected,
 any ballot with that candidate in first place is discounted by a factor of 
 \[\frac{\text{\# of votes}- \text{threshold}}{\text{\# of votes}},\]
 and the vote transfers to the next candidate on the ballot.
 This is how we transferred votes in our example above.
+
 In Cambridge, Massachusetts, they use a method called \emph{random transfer}.\todo{Cite}
 In random transfer, once a candidate is elected, they randomly select 
 \[\text{\# of votes}- \text{threshold}\]
 ballots to keep, and the votes are transferred to the next candidate on those ballots.
-The unselected ballots are no longer used in the tabulation process.
+The unselected ballots are no longer used in the tabulation process.\\
 
-There are other transfer methods? including \todo{cite} 
 
+\paragraph{\bf{Edge cases:}}
 Finally, there are two edge cases that need to be handled.
 The first is the method for handling  multiple candidates 
 crossing the threshold in a single round. Either elect all of them in that round,
 or elect the one with the most votes, and proceed to another round of tabulation.
-This decision affects the order in which candidates are elected and which can even 
+This decision affects the order in which candidates are elected and can even 
 alter the winner set.
+
 The second consideration is a method for handling ties. Ties can occur whenever two or more
 candidates have the same number of first-place votes.\todo{Cite, https://www.portland.gov/sites/default/files/2024/Portland-District-1-Certified-Abstract-Nov-2024.pdf}\footnote{This is not an edge case; ties occur 
 in real-world STV elections. See Round 8 in District 1 of the Portland, OR city council election in 2024.}
 One method is to just randomly select one of the tied candidates; another is to use the 
-first-place vote count from the first round of tabulation.  
+first-place vote count from the first round of tabulation. \\ 
 
 Taken together, these algorithmic decisions make up an STV election.
 
@@ -170,12 +283,15 @@ and Minneapolis, MN adopting STV for two municipal boards.
 %%% flip of  non-partisan, vote leakage 
 \begin{itemize}
     \item[\bf{Complex mechanism:}] STV is a relatively complex voting mechanism, and it can be difficult 
-                    for voters to understand how their vote is converted into an outcome. %% more info required from voter
+                    for voters to understand how their vote is converted into an outcome.  %% more info required from voter
 
     \item[\bf{Voter burden:}] As a voting system, STV \emph{technically} requires that each voter provides 
                     a complete ballot. That is, each ballot needs to list a candidate in each ranking position.
                     This can be a burden for voters, especially if they are not familiar with the candidates
-                    or if they are voting in an election with a long ballot. %% if you want your vote to fully "count"
+                    or if they are voting in an election with a long ballot.
+                    Of course, many voters do not rank all the candidates and many cities
+                    actually cap the ballot length to make it more manageable, and STV 
+                    still manages to work in the presence of short ballots in practice. 
 
     \item[\bf{Vote exhaustion:}] If a voter does not complete their ballot, it is possible that 
                     through candidate elimination their vote will no longer be an active 
