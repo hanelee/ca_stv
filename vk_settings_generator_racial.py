@@ -69,6 +69,8 @@ if __name__ == "__main__":
                             "H": {"H": 0.50, "O": 0.75},
                             "O": {"H": 0.75, "O": 0.50},
                         },
+                        total_hvap = row["hvap_20"],
+                        total_vap = row["total_vap_20"]
                     )
 
                     with open(
