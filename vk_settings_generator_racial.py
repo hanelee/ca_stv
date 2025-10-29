@@ -52,22 +52,22 @@ if __name__ == "__main__":
                 for _, row in data_by_district.iterrows():
                     district = row.name
                     hprop = float(row["hvap_20"] / row["total_vap_20"])
-                    turnout = {"H": 0.3, "O": 0.75}
+                    turnout = {"H": 0.4, "O": 1}
                     adjusted_hprop = hprop*turnout["H"] / (hprop*turnout["H"] + (1-hprop)*turnout["O"])
                     output_settings = dict(
-                        n_voters=100_000,
+                        n_voters=10_000,
                         slate_to_candidates={
                             "H": ["H1", "H2", "H3"],
                             "O": ["O1", "O2", "O3", "O4", "O5", "O6", "O7"],
                         },
                         bloc_proportions={"H": adjusted_hprop, "O": 1 - adjusted_hprop},
                         cohesion_parameters={
-                            "H": {"H": 0.77, "O": 0.23},
-                            "O": {"H": 0.52, "O": 0.48},
+                            "H": {"H": 0.75, "O": 0.25},
+                            "O": {"H": 0.20, "O": 0.80},
                         },
                         alphas={
-                            "H": {"H": 0.50, "O": 0.75},
-                            "O": {"H": 0.75, "O": 0.50},
+                            "H": {"H": 1.25, "O": 0.75},
+                            "O": {"H": 0.6, "O": 0.50},
                         },
                         total_hvap = row["hvap_20"],
                         total_vap = row["total_vap_20"]

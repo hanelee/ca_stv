@@ -53,19 +53,19 @@ if __name__ == "__main__":
                     district = row.name
                     dprop = float(row["pres_20_dem"] / (row["pres_20_dem"]+row["pres_20_rep"]))
                     output_settings = dict(
-                        n_voters=100_000,
+                        n_voters=10_000,
                         slate_to_candidates={
                             "D": ["D1", "D2", "D3", "D4", "D5", "D6", "D7"],
                             "R": ["R1", "R2", "R3"],
                         },
                         bloc_proportions={"D": dprop, "R": 1 - dprop},
                         cohesion_parameters={
-                            "D": {"D": 0.8, "R": 0.2},
-                            "R": {"D": 0.2, "R": 0.8},
+                            "D": {"D": 0.85, "R": 0.15},
+                            "R": {"D": 0.15, "R": 0.85},
                         },
                         alphas={
                             "D": {"D": 0.75, "R": 0.50},
-                            "R": {"D": 0.5, "R": 0.75},
+                            "R": {"D": 1.0, "R": 0.75},
                         },
                     )
 
