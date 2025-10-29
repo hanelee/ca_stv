@@ -8,6 +8,9 @@
 \fancyhead{}  % Clear all headers and footers
 \fancyfoot[C]{\thepage} 
 
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -30,7 +33,7 @@
 
 \section{How it works}
 Single transferable vote, or STV, is a ranked-choice voting system that can be used to elect 
-one or more seats.\footnote{In the case of electing a single seat, STV is often called 
+one or more winners.\footnote{In the case of electing a single seat, STV is often called 
 instant-runoff voting (IRV).} In STV, a threshold of first-place votes is required to be elected.
 If no candidate meets the threshold, the candidate with the fewest first-place votes is eliminated,
 and their votes are transferred to the next candidate on those ballots.
@@ -38,10 +41,119 @@ This is repeated until a candidate reaches the threshold; the candidate is elect
 their votes in surplus of the threshold are transferred to the next candidate on those ballots.
 This is repeated until all seats have been filled.
 
-Here is a simple example of how STV works. \todo{Add example}
+Here is a simple example of an STV election for two seats. 
+\begin{example}
+    Consider the following 21 cast ballots:
+    
+    \[\begin{pmatrix}
+        A\\B\\C\\D\\E
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        B\\A\\C\\D\\E
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        C\\B\\A\\D\\E
+    \end{pmatrix} \times 6,
+    \begin{pmatrix}
+        D\\C\\B\\A\\E
+    \end{pmatrix} \times 3, 
+    \begin{pmatrix}
+        E\\C\\B\\A\\D
+    \end{pmatrix} \times 2.\]
+    
+    If two seats are up for election,  the threshold for election is seven votes (this is 
+    the Droop quota and is defined below).
+    The first round of tabulation is as follows:
+    \begin{itemize}
+        \item A has five votes.
+        \item B has five votes.
+        \item C has six votes.
+        \item D has three votes.
+        \item E has two votes.
+    \end{itemize}
+    Since no one has seven votes, the candidate with the fewest votes is eliminated (E).
 
-In our example above, there were a few algorithmic decisions that had to be made. 
-The first is the threshold. 
+    Now the ballots are 
+    \[\begin{pmatrix}
+        A\\B\\C\\D
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        B\\A\\C\\D
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        C\\B\\A\\D
+    \end{pmatrix} \times 6,
+    \begin{pmatrix}
+        D\\C\\B\\A
+    \end{pmatrix} \times 3, 
+    \begin{pmatrix}
+        C\\B\\A\\D
+    \end{pmatrix} \times 2.\]
+
+    The second round of tabulation is as follows:
+    \begin{itemize}
+        \item A has five votes.
+        \item B has five votes.
+        \item C has eight votes.
+        \item D has three votes.
+    \end{itemize}
+    Since C has eight votes, they are elected and removed from all ballots. 
+    C had one surplus vote over threshold, so the ballots with C in first place are 
+    discounted by a factor of $\frac{1}{8}$.
+
+    Now the ballots are 
+    \[\begin{pmatrix}
+        A\\B\\D
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        B\\A\\D
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        B\\A\\D
+    \end{pmatrix} \times \frac{6}{8},
+    \begin{pmatrix}
+        D\\B\\A
+    \end{pmatrix} \times 3, 
+    \begin{pmatrix}
+        B\\A\\D
+    \end{pmatrix} \times \frac{2}{8}.\]
+
+    The third round tabulation is as follows:
+    \begin{itemize}
+        \item A has five votes.
+        \item B has six votes.
+        \item D has three votes.
+    \end{itemize}
+    Since no one has seven votes, the candidate with the fewest votes is eliminated (D).
+
+    Now the ballots are 
+    \[\begin{pmatrix}
+        A\\B
+    \end{pmatrix} \times 5, \begin{pmatrix}
+        B\\A
+    \end{pmatrix} \times 5,
+    \begin{pmatrix}
+        B\\A
+    \end{pmatrix} \times \frac{6}{8},
+    \begin{pmatrix}
+        B\\A
+    \end{pmatrix} \times 3,
+    \begin{pmatrix}
+        B\\A
+    \end{pmatrix} \times \frac{2}{8}.\]
+
+    The fourth round of tabulation is as follows:
+    \begin{itemize}
+        \item A has five votes.
+        \item B has nine votes.
+    \end{itemize}
+    Since B has nine votes, they are elected.
+    Since two candidates have reached threshold, the election is over, no transfer is needed, and the winners are
+    C and B.
+
+\end{example}
+
+In our example, we hid quite a few algorithmic decisions. 
+There are too many STV variations to cover in this report, 
+but we refer readers to OpaVote for a more comprehensive overview.
+\todo{Cite, https://opavote.com/methods/single-transferable-vote}
+
+\paragraph{\bf{Threshold:}}
+The first choice to make is the threshold value. 
 Above we used the \emph{Droop quota}, the most common threshold used in STV elections.
 Let $m$ denote the number of seats to be filled ($m$ stands for \emph{magnitude}).
 The Droop quota is calculated as
@@ -49,35 +161,37 @@ The Droop quota is calculated as
 where $\lfloor \cdot \rfloor$ denotes rounding down to the nearest integer.
 One way to interpret the Droop quota is that it is the minimum number of votes such 
 that no more than $m$ candidates can achieve the quota.
-There are other thresholds that can be used, including some which updated dynamically
-as the tabulation process progresses.\todo{Cite}
-For the remainder of this report, we will use the Droop quota.
+Other thresholds can be used, including some which updated dynamically
+as the tabulation process progresses.
 
+\paragraph{\bf{Transfer method:}}
 Another important decision is the method for transferring votes. 
 One option is called \emph{fractional transfer}. In fractional transfer, once a candidate is elected,
 any ballot with that candidate in first place is discounted by a factor of 
 \[\frac{\text{\# of votes}- \text{threshold}}{\text{\# of votes}},\]
 and the vote transfers to the next candidate on the ballot.
 This is how we transferred votes in our example above.
+
 In Cambridge, Massachusetts, they use a method called \emph{random transfer}.\todo{Cite}
 In random transfer, once a candidate is elected, they randomly select 
 \[\text{\# of votes}- \text{threshold}\]
 ballots to keep, and the votes are transferred to the next candidate on those ballots.
-The unselected ballots are no longer used in the tabulation process.
+The unselected ballots are no longer used in the tabulation process.\\
 
-There are other transfer methods? including \todo{cite} 
 
+\paragraph{\bf{Edge cases:}}
 Finally, there are two edge cases that need to be handled.
 The first is the method for handling  multiple candidates 
 crossing the threshold in a single round. Either elect all of them in that round,
 or elect the one with the most votes, and proceed to another round of tabulation.
-This decision affects the order in which candidates are elected and which can even 
+This decision affects the order in which candidates are elected and can even 
 alter the winner set.
+
 The second consideration is a method for handling ties. Ties can occur whenever two or more
 candidates have the same number of first-place votes.\todo{Cite, https://www.portland.gov/sites/default/files/2024/Portland-District-1-Certified-Abstract-Nov-2024.pdf}\footnote{This is not an edge case; ties occur 
 in real-world STV elections. See Round 8 in District 1 of the Portland, OR city council election in 2024.}
 One method is to just randomly select one of the tied candidates; another is to use the 
-first-place vote count from the first round of tabulation.  
+first-place vote count from the previous round of tabulation. \\ 
 
 Taken together, these algorithmic decisions make up an STV election.
 
@@ -174,46 +288,62 @@ regional, and local governments. Global uses include:
 \end{itemize}
 
 \section{Pros and Cons}
+Whether or not STV is appropriate for a given locality is highly context-dependent.
+Here we discusss the broad pros and cons of STV that apply to most implementations.
 \subsection{Pros}
-\begin{itemize}
-    \item[\bf{Flexible:}] STV can be used with or without districts. It is flexible enough to be used 
-                    either to elect a single winner per district, to elect multiple winners per district,
-                    or to elect all winners at large. This flexibility allows STV to be used in a variety of contexts,
-                    from at-large city councils to districted legislative bodies.
 
-    \item[\bf{Proportional tendencies:}] STV in the multi-winner setting tends to produce more
-                    proportional outcomes than plurality voting. This is in part because STV dampens the 
-                    power of ballots that have already had a candidate elected, thus giving smaller
-                    voting blocs the change to elect a candidate of choice.
+\paragraph{{\bf{Flexible magnitude:}}}
+ STV can be used with or without districts. It is flexible enough to be used 
+    either to elect a single winner per district, to elect multiple winners per district,
+    or to elect all winners at large. This flexibility allows STV to be used in a variety of contexts,
+    from at-large city councils to districted legislative bodies.\\
 
-    \item[\bf{Non-partisan:}] Unlike some list-based voting systems, STV does not require 
-                        candidates to run under a party label. This lowers the barrier to entry
-                        for candidates who may not enjoy the support of a political party.
-    \item[\bf{Local alignment:}] STV is already used in six California cities to elect one or more winners, 
-                        with another city currently implementing the system for future use.\todo{Cite, https://fairvote.org/our-reforms/ranked-choice-voting-information/?section=jurisdictions-using-rcv} 
-                        Voters in two of the state's most populous cities are already familiar with the system, 
-                        and local election officials in some large counties have previously piloted voter education 
-                        and implemented STV.
-\end{itemize}
+\paragraph{\bf{Proportional tendencies:}} 
+STV in the multi-winner setting tends to produce more
+proportional outcomes than plurality voting.\footnote{Though STV is not expressly proportional like, say, open list systems.} 
+This is in part because STV dampens the 
+power of ballots that have already had a candidate elected, thus giving smaller
+voting blocs the change to elect a candidate of choice.  
+STV also satisfies an axiom known as Proportionality for Solid Colations,
+which says that if a group of voters is large enough to deserve $k$ seats and agrees on 
+their $k$ preferred candidates, then they can expect to elect at least $k$ candidates.
+However, voters rarely display such unanimity in their preferences in practice.\\
+
+\paragraph{\bf{Non-partisan:}} 
+ Unlike some list-based voting systems, STV does not require 
+    candidates to run under a party label. This lowers the barrier to entry
+    for candidates who may not enjoy the support of a political party, and makes it 
+    suitable for local elections that are non-partisan.\\
+
+\paragraph{\bf{Local alignment:}} STV is already used in six California cities to elect one or more winners, 
+with another city currently implementing the system for future use.\todo{Cite, https://fairvote.org/our-reforms/ranked-choice-voting-information/?section=jurisdictions-using-rcv} 
+Voters in two of the state's most populous cities are already familiar with the system, 
+and local election officials in some large counties have previously piloted voter education 
+and implemented STV.\\
+
 
 \subsection{Cons}
 
-%%% flip of  non-partisan, vote leakage 
-\begin{itemize}
-    \item[\bf{Complex mechanism:}] STV is a relatively complex voting mechanism, and it can be difficult 
-                    for voters to understand how their vote is converted into an outcome. %% more info required from voter
 
-    \item[\bf{Voter burden:}] As a voting system, STV \emph{technically} requires that each voter provides 
+
+   \paragraph{\bf{Complex mechanism:}} STV is a relatively complex voting mechanism, and it can be difficult 
+                    for voters to understand how their vote is converted into an outcome.  \\
+
+    \paragraph{\bf{Voter burden:}} As a voting system, STV \emph{technically} requires that each voter provides 
                     a complete ballot. That is, each ballot needs to list a candidate in each ranking position.
                     This can be a burden for voters, especially if they are not familiar with the candidates
-                    or if they are voting in an election with a long ballot. %% if you want your vote to fully "count"
+                    or if they are voting in an election with a long ballot.
+                    Of course, many voters do not rank all the candidates and many cities
+                    actually cap the ballot length to make it more manageable, and STV 
+                    still manages to work in the presence of short ballots in practice. \\
 
-    \item[\bf{Vote exhaustion:}] If a voter does not complete their ballot, it is possible that 
+    \paragraph{\bf{Vote exhaustion:}} If a voter does not complete their ballot, it is possible that 
                     through candidate elimination their vote will no longer be an active 
-                    part of the tabulation process. 
+                    part of the tabulation process. \\
 
-    \item[\bf{Vote leakage:}] Votes ``for" a party can leak to other parties.
-\end{itemize}
+    \paragraph{\bf{Vote leakage:}} Political parties often express hesitation for STV,
+    since votes that originally list a party member first can leak to other parties throughout 
+    the tabulation process.\\
 
 In practice, much of the cons list can be mitigated through voter education and outreach. 
 The mechnism can be explained, and voters can be encouraged to complete their ballots.
@@ -223,7 +353,14 @@ as voters become more familiar with the system. \todo{Cite}
 
 
 
-CA Single-subject rule concerns
+\subsection{CA Single-subject rule}
+California's ballot initiative process contains a single-subject rule that prohibits
+a ballot initiative from ``embracing more than one subject." \todo{Cite, CA const art 2 sec 8d}
+It would be relatively easy to implement STV through a ballot initiative without running
+afoul of the single-subject rule.
+The only concern is that it could be interpreted that the shift to multi-member districts 
+is a distinct subject from the shift to STV.
+But since STV as proposed requires muli-member districts, this seems unlikely to pose a problem.
 
 \section{Modeling STV in CA}
 
@@ -245,20 +382,60 @@ One of the primary challenges with deciding on an electoral reform is that there
 historical ranked-choice data available to construct realistic preferences for voters, thus making
 it difficult to evaluate the impact of the reform. There is a growing body of work in 
 computational social choice that allows us to generate realistic preferences for voters 
-using parameterized mathematical models. 
+using parameterized mathematical models. \todo{cite, mggg}
 
 While a full discussion of the mathematical models is beyond the scope of this report, we briefly introduce them here. 
 We use three different models to generate ranked-ballots 
-for voters: the slate-Plackett-Luce sampler, the slate-Bradley-Terry sampler, and the Cambridge sampler.
+for voters: the impulsive voter, the deliberative voter, and the Cambridge voter.
 We first assume that voters are divided into two blocs and each bloc has a corresponding slate of candidates.
 Each bloc of voters has an underlying preference for their slate of candidates over the other slate.
 Each bloc also has preference for the candidates within their own slate.
 To create a ballot for a voter, a model first decides the order in which the slates appear on the ballot.
 Then, for each slate, the model decides the order in which the candidates appear, and fills them 
 in on the ballot in that order.
+The type of model---impulsive, deliberative, or Cambridge---determines the probability of 
+the final ballot being generated.
+The impulsive model simulates a voter who only considers one slate/candidate at a time.
+The deliberative model simulates a voter who considers all the possible pairwise comparisons 
+between the slates/candidates.
+The Cambridge model uses actual historical data from Cambridge, MA to generate the ballot.
 
-Consider the following example.\todo{Add example}
+Consider the following example.
+\begin{example}
+Suppose we have divided the electorate into two blocs of voters, Hispanic (H) and non-Hispanic (NH).
+Each bloc has a corresponding slate of three candidates.
+The Hispanic slate prefers their own candidates 80\% of the time, while the non-Hispanic slate 
+prefers their own candidates 70\% of the time.
+Within each bloc and slate, the candidates are preferred equally.
 
+Our models all begin by sampling an order of the slates. Consider a Hispanic voter. 
+They might sample the slate order 
+\[\begin{pmatrix}
+    H\\
+     H\\
+     NH\\
+     H\\
+     NH\\
+     NH
+\end{pmatrix}.\]
+Then, within the Hispanic slate, they might sample the candidate order $H_1, H_3, H_2$, 
+and within the non-Hispanic slate, they might sample the candidate order $NH_3, NH_2, NH_1$.
+Thus the voter's ballot is 
+\[B = \begin{pmatrix}
+    H_1\\
+    H_3\\
+    NH_3\\
+    H_2\\
+    NH_2\\
+    NH_1
+\end{pmatrix}.\]
+
+This ballot has different probabilities of being generated by the different models.
+While the specific probabilities are not important, the impulsive model will sample this ballot
+almost three times as often as the deliberative model.
+
+
+\end{example}
 %% describe impulsive, deliberative, cambridge 
 %% shorthand descriptions
 
