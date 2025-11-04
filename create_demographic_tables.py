@@ -84,18 +84,24 @@ for (dn, eln) in district_nums:
     for row in dn_df.iterrows():
         plan_num = row[1]['plan']
         district_num = row[1]['dist_num']
-        hvap_prop.at[plan_num, district_num] = float(row[1]["H_prop_census"])
-        rvap_prop.at[plan_num, district_num] = float(row[1]["R_prop_census"])
-        pairs_df.at[plan_num, district_num] = (row[1]["H_prop_census"],row[1]["R_prop_census"])
+        hvap_prop.at[plan_num, district_num] = round(row[1]["H_prop_census"],4)
+        rvap_prop.at[plan_num, district_num] = round(row[1]["R_prop_census"],4)
+        pairs_df.at[plan_num, district_num] = (round(row[1]["H_prop_census"],4),round(row[1]["R_prop_census"],4))
 
     # print(hvap_prop.head())
     # print(rvap_prop.head())
     # hvap_props.append(hvap_prop)
     
+    hvap_prop_sorted = hvap_prop.apply(lambda row: row.sort_values(ascending=False).values, axis=1, result_type='expand')
+    rvap_prop_sorted = rvap_prop.apply(lambda row: row.sort_values(ascending=False).values, axis=1, result_type='expand')
+    pairs_df_sorted = pairs_df.apply(
+        lambda row: sorted(row, key=lambda x: x[0], reverse=True),
+        axis=1, result_type='expand'
+    )
     
-    hvap_prop.to_csv(f'./demo_tables/{dn}_districts_hvap_only.csv')
-    rvap_prop.to_csv(f'./demo_tables/{dn}_districts_rvap_only.csv')
-    pairs_df.to_csv(f'./demo_tables/{dn}_districts_hvap_rvap_pairs.csv')
+    hvap_prop_sorted.to_csv(f'./demo_tables/{dn}_districts_hvap_only.csv')
+    rvap_prop_sorted.to_csv(f'./demo_tables/{dn}_districts_rshare_only.csv')
+    pairs_df_sorted.to_csv(f'./demo_tables/{dn}_districts_hvap_rshare_pairs.csv')
 
 
 
