@@ -23,6 +23,8 @@ import time
 #         "reproducibility. If using UV, you may then rerun this script "
 #     )
 
+n_voters = 10_000
+n_reps = 100
 
 generator_name_to_function = {
     "slate_pl": slate_pl_profile_generator,
@@ -35,11 +37,16 @@ def process_settings_file(settings_file, profile_folder, mode, duplicate_indx):
     with open(settings_file, "r") as f:
         settings = json.load(f)
 
+    if mode == "slate_bt":
+        cohesion_mapping = settings["sbt_cohesion_parameters"]
+    else:
+        cohesion_mapping = settings["spl_cs_cohesion_parameters"]
+
     config = BlocSlateConfig(
-        n_voters=10_000,
+        n_voters=n_voters,
         slate_to_candidates=settings["slate_to_candidates"],
         bloc_proportions=settings["bloc_proportions"],
-        cohesion_mapping=settings["cohesion_parameters"],
+        cohesion_mapping=cohesion_mapping,
     )
 
     config.set_dirichlet_alphas(settings["alphas"])
@@ -47,7 +54,7 @@ def process_settings_file(settings_file, profile_folder, mode, duplicate_indx):
 
     output_file = (
         profile_folder
-        / f"{setting_file_stem.replace('sample_settings', 'profile')}_v{duplicate_indx}.csv"
+        / f"{setting_file_stem.replace('sample_settings', 'profile')}_v{duplicate_indx:03d}.csv"
     )
     profile = generator_name_to_function[mode](config)
     profile.to_csv(output_file)
@@ -55,27 +62,33 @@ def process_settings_file(settings_file, profile_folder, mode, duplicate_indx):
 
 if __name__ == "__main__":
     ## generate N profiles for each district
-    num_reps = 100
+    num_reps = n_reps
     for duplicate_indx in range(num_reps):
         rep_start = time.perf_counter()
-        print(f"[rep {duplicate_indx + 1}/{num_reps}] Start at {time.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(
+            f"[rep {duplicate_indx + 1}/{num_reps}] Start at {time.strftime('%Y-%m-%d %H:%M:%S')}"
+        )
         district_nums = [8, 10, 16, 20, 40, 80]
         for district_num in district_nums:
             for mode in ["slate_pl", "slate_bt", "cambridge"]:
-                settings_folder = Path(f"./vk_run_settings_racial_turnout/{district_num}")
-                profile_folder = Path(f"./vk_voter_profiles_racial_turnout/{mode}/{district_num}")
+                settings_folder = Path(f"./vk_run_settings_racial/{district_num}")
+                profile_folder = Path(
+                    f"./vk_voter_profiles_racial/{mode}/{district_num}"
+                )
                 profile_folder.mkdir(exist_ok=True, parents=True)
-    
+
                 all_settings_files = glob(f"{settings_folder}/*.json")
-    
+
                 all_settings_files = all_settings_files
-    
+
                 with joblib_progress(
                     description=f"[rep {duplicate_indx + 1:03d}/{num_reps}] Generating VK profiles for {district_num:02d} districts and voter model {mode}",
                     total=len(all_settings_files),
                 ):
                     Parallel(n_jobs=-1)(
-                        delayed(process_settings_file)(settings_file, profile_folder, mode, duplicate_indx)
+                        delayed(process_settings_file)(
+                            settings_file, profile_folder, mode, duplicate_indx
+                        )
                         for settings_file in all_settings_files
                     )
         rep_elapsed = time.perf_counter() - rep_start

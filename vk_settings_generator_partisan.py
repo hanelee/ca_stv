@@ -4,6 +4,7 @@ from pathlib import Path
 import jsonlines as jl
 from tqdm import tqdm
 from gerrychain import Graph
+from sbt_cohesion_fpv_utils import slate_BT_fpv_to_coh
 
 
 if __name__ == "__main__":
@@ -12,11 +13,10 @@ if __name__ == "__main__":
         "./geographic_data/ca_districtr_bg_view_v1.gpkg",
         layer="ca_districtr_bg_view_v1",
     )
-
     # Just a quick sanity check to make sure the graph and df line up
     bg_graph = Graph.from_json("./geographic_data/CA_bg_2020_dualgraph.json")
     for i, node in enumerate(bg_graph.nodes()):
-        if node != df.iloc[i]["path"]:
+        if bg_graph.nodes[node]["path"] != df.iloc[i]["path"]:
             raise ValueError(f"Node {i} with id {node} does not align with df!")
 
     df = df[["total_vap_20", "pres_20_dem", "pres_20_rep"]]
@@ -51,21 +51,49 @@ if __name__ == "__main__":
 
                 for _, row in data_by_district.iterrows():
                     district = row.name
-                    dprop = float(row["pres_20_dem"] / (row["pres_20_dem"]+row["pres_20_rep"]))
+                    dprop = float(
+                        row["pres_20_dem"] / (row["pres_20_dem"] + row["pres_20_rep"])
+                    )
+
+                    num_r_cands = 5
+                    num_d_cands = 5
+                    pi_r = 0.85
+                    pi_d = 0.85
+                    sbt_cohesion_r = round(
+                        slate_BT_fpv_to_coh(num_r_cands, num_d_cands, pi_r), 4
+                    )
+                    sbt_cohesion_d = round(
+                        slate_BT_fpv_to_coh(num_d_cands, num_r_cands, pi_d), 4
+                    )
+
                     output_settings = dict(
                         n_voters=10_000,
                         slate_to_candidates={
-                            "D": ["D1", "D2", "D3", "D4", "D5", "D6", "D7"],
-                            "R": ["R1", "R2", "R3"],
+                            "D": [f"D{i+1}" for i in range(num_d_cands)],
+                            "R": [f"R{i+1}" for i in range(num_r_cands)],
                         },
                         bloc_proportions={"D": dprop, "R": 1 - dprop},
-                        cohesion_parameters={
-                            "D": {"D": 0.85, "R": 0.15},
-                            "R": {"D": 0.15, "R": 0.85},
+                        spl_cs_cohesion_parameters={
+                            "D": {"D": pi_d, "R": round(1 - pi_d, 4)},
+                            "R": {"D": round(1 - pi_r, 4), "R": pi_r},
                         },
+                        sbt_cohesion_parameters={
+                            "D": {
+                                "D": sbt_cohesion_d,
+                                "R": round(1 - sbt_cohesion_d, 4),
+                            },
+                            "R": {
+                                "D": round(1 - sbt_cohesion_r, 4),
+                                "R": sbt_cohesion_r,
+                            },
+                        },
+                        # alphas={
+                        #     "D": {"D": 0.75, "R": 0.50},
+                        #     "R": {"D": 1.0, "R": 0.75},
+                        # },
                         alphas={
-                            "D": {"D": 0.75, "R": 0.50},
-                            "R": {"D": 1.0, "R": 0.75},
+                            "D": {"D": 1, "R": 1},
+                            "R": {"D": 1, "R": 1},
                         },
                     )
 
